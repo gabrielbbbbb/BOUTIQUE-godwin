@@ -63,6 +63,9 @@ function requireAdmin(req, res, next) {
     .json({ message: "Unauthorized (invalid admin password header)" });
 }
 
+// Serve frontend files
+app.use(express.static(path.join(__dirname, "../frontend")));
+
 // Routes
 app.get("/api/products", async (req, res) => {
   const products = await Product.find().sort({ createdAt: -1 });
