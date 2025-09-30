@@ -23,14 +23,14 @@ async function fetchProducts() {
   } catch (err) {
     console.error("Could not load products:", err);
     productsContainer.innerHTML =
-      "<p>Could not load products (check backend).</p>";
+      "<p>Impossible de charger le produit (check backend).</p>";
   }
 }
 
 function renderProducts() {
   productsContainer.innerHTML = "";
   if (!products.length) {
-    productsContainer.innerHTML = "<p>No products yet.</p>";
+    productsContainer.innerHTML = "<p>Aucun Produit pour l'instant.</p>";
     return;
   }
   products.forEach((product, i) => {
@@ -66,7 +66,7 @@ function showModalImage() {
   const p = products[currentProductIndex];
   if (!p || !p.images || p.images.length === 0) {
     modalImage.src = "";
-    modalImage.alt = "no image";
+    modalImage.alt = "aucun image";
     return;
   }
   const path = p.images[currentImageIndex];

@@ -10,21 +10,41 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: var(--bg);
   margin: 0;
-  color: #111;
+  color: #fff;
+  background-color: rgba(99, 99, 175, 0.986);
 }
 .site-header {
-  background: #111;
-  color: #fff;
-  padding: 12px 18px;
+  background: yellow;
+  /*  padding: 12px 18px; */
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 30vh;
+}
+.site-header h1 {
+  color: #1565c0;
+  font-weight: bold;
+  font-size: 3rem;
+  text-shadow: 0px 3px 6px #555;
 }
 .site-header a {
-  color: #fff;
+  color: #1565c0;
   margin-left: 12px;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 300px;
+  padding: 10px 15px;
+  background-color: #a6adada1;
+  &:hover {
+    color: red;
+    transition: 0.5s ease-in-out;
+    background-color: #1565c0;
+    color: yellow;
+  }
 }
 main {
   padding: 18px;
@@ -151,7 +171,29 @@ main {
   .product-card img {
     height: 120px;
   }
+  .site-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .site-header h1 {
+    font-size: 1.5rem;
+  }
   .carousel img {
     max-height: 220px;
+  }
+}
+@media (max-width: 340px) {
+  .site-header h1 {
+    margin-left: 4rem;
+  }
+  .site-header a {
+    margin-top: -50px;
+  }
+}
+@media (min-width: 600px) and (max-width: 1000px) {
+  .site-header h1 {
+    font-size: 2rem;
   }
 }

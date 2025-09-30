@@ -34,7 +34,7 @@ setLoggedInUI();
 loginBtn.addEventListener("click", () => {
   const p = adminPasswordInput.value.trim();
   if (!p) {
-    loginMsg.textContent = "Enter password";
+    loginMsg.textContent = "Entrer mot de passe";
     return;
   }
   adminPassword = p;
@@ -56,14 +56,14 @@ async function loadAdminProducts() {
     renderAdminList(list);
   } catch (err) {
     console.error(err);
-    adminList.innerHTML = "<p>Could not load products.</p>";
+    adminList.innerHTML = "<p>Impossible de charger le produit.</p>";
   }
 }
 
 function renderAdminList(items) {
   adminList.innerHTML = "";
   if (!items.length) {
-    adminList.innerHTML = "<p>No products yet</p>";
+    adminList.innerHTML = "<p>Pas de produit</p>";
     return;
   }
   items.forEach((p) => {
@@ -78,8 +78,8 @@ function renderAdminList(items) {
         <small>$${p.price ?? ""} — ${escapeHtml(p.brand || "")}</small>
       </div>
       <div>
-        <button data-id="${p._id}" class="editBtn">Edit</button>
-        <button data-id="${p._id}" class="delBtn small-btn">Delete</button>
+        <button data-id="${p._id}" class="editBtn">Modifier</button>
+        <button data-id="${p._id}" class="delBtn small-btn">Supprimer</button>
       </div>
     `;
     adminList.appendChild(div);
@@ -88,15 +88,15 @@ function renderAdminList(items) {
   document.querySelectorAll(".delBtn").forEach((b) =>
     b.addEventListener("click", async (ev) => {
       const id = ev.target.dataset.id;
-      if (!confirm("Delete this product?")) return;
+      if (!confirm("Suprrimer cet produit?")) return;
       try {
         const res = await adminFetch(`${API_BASE}/products/${id}`, {
           method: "DELETE",
         });
-        if (!res.ok) throw new Error("Delete failed");
+        if (!res.ok) throw new Error("Echec de supprimer");
         loadAdminProducts();
       } catch (err) {
-        alert("Delete failed (check console)");
+        alert("Echec de supprimer (check console)");
         console.error(err);
       }
     })
@@ -126,7 +126,7 @@ function renderAdminList(items) {
 productForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!adminPassword) {
-    alert("Please login first");
+    alert("Svp veillez Connecter  avant");
     return;
   }
 
@@ -148,15 +148,15 @@ productForm.addEventListener("submit", async (e) => {
     const res = await adminFetch(url, { method, body: fd });
     if (!res.ok) {
       const text = await res.text();
-      throw new Error(text || "Request failed");
+      throw new Error(text || "Demande échoué");
     }
     // success
-    alert("Saved!");
+    alert("Sauvégarder!");
     productForm.reset();
     productIdField.value = "";
     loadAdminProducts();
   } catch (err) {
-    alert("Save failed (check console)");
+    alert("Echoc de sauvegarder (check console)");
     console.error(err);
   }
 });
