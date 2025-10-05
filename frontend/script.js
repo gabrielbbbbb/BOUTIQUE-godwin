@@ -1,3 +1,8 @@
+//const API_BASE = "https://subsynodical-parochial-alisia.ngrok-free.dev/api";
+/* const API_BASE = window.location.origin.includes("ngrok")
+? " https://subsynodical-parochial-alisia.ngrok-free.dev/api"
+: "http://localhost:5000/api";
+*/
 const API_BASE = "http://localhost:5000/api";
 let products = [];
 let currentProductIndex = 0;
@@ -42,9 +47,11 @@ function renderProducts() {
         : "";
     card.innerHTML = `
       <img src="${imgSrc}" alt="${escapeHtml(product.name)}">
-      <h3>${escapeHtml(product.name)}</h3>
-      <p>${escapeHtml(truncate(product.description || "", 80))}</p>
-      <p><strong>$${product.price ?? ""}</strong></p>
+      <h3 class="">${escapeHtml(product.name)}</h3>
+      <p class='modalDescrip'>${escapeHtml(
+        truncate(product.description || "", 80)
+      )}</p>
+      <p ><strong>${product.price ?? ""} CFA</strong></p>
     `;
     card.addEventListener("click", () => openModal(i));
     productsContainer.appendChild(card);
@@ -58,7 +65,7 @@ function openModal(index) {
   const p = products[currentProductIndex];
   modalName.textContent = p.name;
   modalDescription.textContent = p.description || "";
-  modalPrice.textContent = `$${p.price ?? ""}`;
+  modalPrice.textContent = `${p.price ?? ""}CFA`;
   modal.setAttribute("aria-hidden", "false");
 }
 

@@ -10,8 +10,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: var(--bg);
   margin: 0;
-  color: #fff;
-  background-color: rgba(99, 99, 175, 0.986);
+  color: #000;
+  background-color: white;
 }
 .site-header {
   background: yellow;
@@ -51,8 +51,9 @@ main {
 }
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
+  justify-content: center;
 }
 .product-card {
   background: var(--card);
@@ -167,9 +168,28 @@ main {
   border-radius: 6px;
   cursor: pointer;
 }
+#modalDescription,
+#modalName {
+  color: black;
+  font-weight: bold;
+  width: 600px;
+}
+.modalDescrip {
+  overflow: hidden;
+}
+#modalPrice {
+  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: #555;
+  font-size: 1.5rem;
+}
+.close {
+  color: red;
+  font-size: 3rem;
+}
 @media (max-width: 600px) {
   .product-card img {
-    height: 120px;
+    height: 100px;
   }
   .site-header {
     display: flex;
@@ -177,11 +197,28 @@ main {
     align-items: center;
     gap: 10px;
   }
+  .site-header a {
+    font-size: 1rem;
+  }
   .site-header h1 {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
+    text-align: center;
   }
   .carousel img {
     max-height: 220px;
+  }
+
+  #modalDescription,
+  #modalName {
+    color: black;
+    font-weight: bold;
+    width: 300px;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    justify-content: center;
   }
 }
 @media (max-width: 340px) {
