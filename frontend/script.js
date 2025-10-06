@@ -43,7 +43,7 @@ function renderProducts() {
     card.className = "product-card";
     const imgSrc =
       product.images && product.images[0]
-        ? `http://localhost:5000${product.images[0]}`
+        ? `https://boutique-godwin.onrender.com${product.images[0]}`
         : "";
     card.innerHTML = `
       <img src="${imgSrc}" alt="${escapeHtml(product.name)}">
@@ -77,7 +77,8 @@ function showModalImage() {
     return;
   }
   const path = p.images[currentImageIndex];
-  modalImage.src = `http://localhost:5000${path}`;
+  //modalImage.src = `http://localhost:5000${path}`;
+  modalImage.src = `https://boutique-godwin.onrender.com${path}`;
   modalImage.alt = p.name;
 }
 

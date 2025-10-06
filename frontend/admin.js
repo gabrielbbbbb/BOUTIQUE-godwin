@@ -93,7 +93,9 @@ function renderAdminList(items) {
     const div = document.createElement("div");
     div.className = "admin-item";
     const imgSrc =
-      p.images && p.images[0] ? `http://localhost:5000${p.images[0]}` : "";
+      p.images && p.images[0]
+        ? `https://boutique-godwin.onrender.com${p.images[0]}`
+        : "";
     div.innerHTML = `
       <img src="${imgSrc}" alt="${p.name}">
       <div style="flex:1">
