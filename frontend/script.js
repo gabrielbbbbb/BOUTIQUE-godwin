@@ -3,7 +3,7 @@
 ? " https://subsynodical-parochial-alisia.ngrok-free.dev/api"
 : "http://localhost:5000/api";
 */
-const API_BASE = "https://boutique-godwin.onrender.com";
+const API_BASE = "https://boutique-godwin.onrender.com/api";
 let products = [];
 let currentProductIndex = 0;
 let currentImageIndex = 0;
