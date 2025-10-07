@@ -59,7 +59,14 @@ function requireAdmin(req, res, next) {
 }
 
 // ======= Serve Frontend =======
-app.use(express.static(path.join(process.cwd(), "frontend")));
+//app.use(express.static(path.join(process.cwd(), "frontend")));
+
+const frontendPath = path.join(__dirname, "..", "frontend");
+app.use(express.static(frontendPath));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
 
 // ======= Routes =======
 
@@ -179,9 +186,6 @@ mongoose
 
 //ajoute
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(process.cwd(), "frontend", "index.html"));
-});
 app.get("/api/debug", async (req, res) => {
   try {
     const count = await Product.countDocuments();
@@ -190,3 +194,4 @@ app.get("/api/debug", async (req, res) => {
     res.status(500).json({ message: "Error checking product count" });
   }
 });
+//jjsdkjsk
