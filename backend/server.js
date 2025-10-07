@@ -200,3 +200,11 @@ app.get("/api/debug", async (req, res) => {
   }
 });
 //jjsdkjsk
+
+app.use("/api", (req, res) => {
+  res.status(404).json({ message: "API route not found" });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
+});
