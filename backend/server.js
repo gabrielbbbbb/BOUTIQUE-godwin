@@ -20,6 +20,7 @@ const storage = new CloudinaryStorage({
   params: {
     folder: "boutique-godwin", // Folder in your Cloudinary account
     allowed_formats: ["jpg", "png", "jpeg", "webp"],
+    upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
   },
 });
 const upload = multer({ storage });
@@ -175,3 +176,17 @@ mongoose
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err.message || err);
   });
+
+//ajoute
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "frontend", "index.html"));
+});
+app.get("/api/debug", async (req, res) => {
+  try {
+    const count = await Product.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    res.status(500).json({ message: "Error checking product count" });
+  }
+});
