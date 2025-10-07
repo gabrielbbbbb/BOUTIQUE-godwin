@@ -25,6 +25,7 @@ const resetBtn = document.getElementById("resetBtn");
 
 let adminPassword = sessionStorage.getItem("adminPassword") || null;
 
+// Show/hide panel based on login state
 function setLoggedInUI() {
   if (adminPassword) {
     loginSection.style.display = "none";
@@ -37,6 +38,7 @@ function setLoggedInUI() {
 }
 setLoggedInUI();
 
+// Login handler
 loginBtn.addEventListener("click", async () => {
   const p = adminPasswordInput.value.trim();
   if (!p) {
@@ -70,13 +72,14 @@ loginBtn.addEventListener("click", async () => {
   }
 });
 
-// helper to call fetch with admin header
+// Helper to call fetch with admin header
 function adminFetch(url, options = {}) {
   options.headers = options.headers || {};
   options.headers["x-admin-password"] = adminPassword;
   return fetch(url, options);
 }
 
+// Load all products for admin panel
 async function loadAdminProducts() {
   try {
     const res = await fetch(`${API_BASE}/products`);
@@ -88,6 +91,7 @@ async function loadAdminProducts() {
   }
 }
 
+// Render admin product list
 function renderAdminList(items) {
   adminList.innerHTML = "";
   if (!items.length) {
@@ -97,7 +101,15 @@ function renderAdminList(items) {
   items.forEach((p) => {
     const div = document.createElement("div");
     div.className = "admin-item";
-    const imgSrc = p.images && p.images[0] ? p.images[0] : "";
+
+    // Use full URL for images
+    const imgSrc =
+      p.images && p.images[0]
+        ? p.images[0].startsWith("http")
+          ? p.images[0]
+          : `https://boutique-godwin.onrender.com${p.images[0]}`
+        : "";
+
     div.innerHTML = `
       <img src="${imgSrc}" alt="${p.name}">
       <div style="flex:1">
@@ -112,6 +124,7 @@ function renderAdminList(items) {
     adminList.appendChild(div);
   });
 
+  // Delete buttons
   document.querySelectorAll(".delBtn").forEach((b) =>
     b.addEventListener("click", async (ev) => {
       const id = ev.target.dataset.id;
@@ -129,6 +142,7 @@ function renderAdminList(items) {
     })
   );
 
+  // Edit buttons
   document.querySelectorAll(".editBtn").forEach((b) =>
     b.addEventListener("click", async (ev) => {
       const id = ev.target.dataset.id;
@@ -149,7 +163,7 @@ function renderAdminList(items) {
   );
 }
 
-// upload image to Cloudinary
+// Upload image to Cloudinary
 async function uploadToCloudinary(file) {
   const fd = new FormData();
   fd.append("file", file);
@@ -164,6 +178,7 @@ async function uploadToCloudinary(file) {
   return data.secure_url; // permanent image URL
 }
 
+// Product form submit
 productForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!adminPassword) {
@@ -204,6 +219,7 @@ productForm.addEventListener("submit", async (e) => {
       const text = await res.text();
       throw new Error(text || "Demande échouée");
     }
+
     alert("Sauvegardé!");
     productForm.reset();
     productIdField.value = "";
@@ -214,6 +230,7 @@ productForm.addEventListener("submit", async (e) => {
   }
 });
 
+// Reset form
 resetBtn.addEventListener("click", () => {
   productForm.reset();
   productIdField.value = "";
