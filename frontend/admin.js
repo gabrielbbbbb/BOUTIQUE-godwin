@@ -103,10 +103,18 @@ function renderAdminList(items) {
     div.className = "admin-item";
 
     // Use full URL for images
+
     const imgSrc =
+      Array.isArray(p.images) &&
+      typeof p.images[0] === "string" &&
+      p.images[0].startsWith("https")
+        ? p.images[0]
+        : "https://res.cloudinary.com/dmyjmpyzh/image/upload/v1312461204/sample.jpg";
+
+    /*    const imgSrc =
       Array.isArray(p.images) && p.images.length > 0
         ? p.images[0]
-        : "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg";
+        : "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg"; */
 
     div.innerHTML = `
       <img src="${imgSrc}" alt="${p.name}">

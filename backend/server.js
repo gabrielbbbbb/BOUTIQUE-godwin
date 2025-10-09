@@ -97,9 +97,11 @@ app.post(
   upload.array("images", 4),
   async (req, res) => {
     try {
-      const { name, description, price, brand, category } = req.body;
+      const { name, description, price, brand, category, images } = req.body;
+
+      //////////// Cloudinary URLs
       //const images = (req.files || []).map((f) => f.path);
-      const images = (req.files || []).map((f) => f.path || f.secure_url);
+      //  const images = (req.files || []).map((f) => f.path || f.secure_url);
 
       const product = await Product.create({
         name,
@@ -107,7 +109,7 @@ app.post(
         price,
         brand,
         category,
-        images,
+        images: Array.isArray(images) ? images : [],
       });
       res.status(201).json(product);
     } catch (err) {
@@ -124,9 +126,13 @@ app.put(
   upload.array("images", 4),
   async (req, res) => {
     try {
-      const { name, description, price, brand, category } = req.body;
+      const { name, description, price, brand, category, images } = req.body;
       const product = await Product.findById(req.params.id);
       if (!product) return res.status(404).json({ message: "Not found" });
+
+      if (Array.isArray(images) && images.length > 0) {
+        product.images = images;
+      }
 
       if (req.files && req.files.length > 0) {
         // const newImgs = req.files.map((f) => f.path);
