@@ -167,7 +167,18 @@ app.get("/api/debug", async (req, res) => {
 });
 
 // ======= Serve Frontend =======
-app.use(express.static(path.join(__dirname, "frontend")));
+
+// ✅ Serve the frontend (adjust path)
+const frontendPath = path.join(__dirname, "..", "frontend");
+app.use(express.static(frontendPath));
+
+app.get("*", (req, res) => {
+  if (!req.path.startsWith("/api")) {
+    res.sendFile(path.join(frontendPath, "index.html"));
+  }
+});
+
+/* app.use(express.static(path.join(__dirname, "frontend")));
 
 // Serve index.html for all non-API routes
 app.get("*", (req, res) => {
@@ -176,7 +187,7 @@ app.get("*", (req, res) => {
   } else {
     res.status(404).json({ message: "API route not found" });
   }
-});
+}); */
 
 // ======= Start Server =======
 const PORT = process.env.PORT || 5000;
