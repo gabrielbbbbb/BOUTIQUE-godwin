@@ -98,7 +98,8 @@ app.post(
   async (req, res) => {
     try {
       const { name, description, price, brand, category } = req.body;
-      const images = (req.files || []).map((f) => f.path);
+      //const images = (req.files || []).map((f) => f.path);
+      const images = (req.files || []).map((f) => f.path || f.secure_url);
 
       const product = await Product.create({
         name,
@@ -128,7 +129,9 @@ app.put(
       if (!product) return res.status(404).json({ message: "Not found" });
 
       if (req.files && req.files.length > 0) {
-        const newImgs = req.files.map((f) => f.path);
+        // const newImgs = req.files.map((f) => f.path);
+        const newImgs = req.files.map((f) => f.path || f.secure_url);
+
         product.images = (product.images || []).concat(newImgs);
       }
 
