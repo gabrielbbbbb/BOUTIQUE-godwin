@@ -196,6 +196,7 @@ productForm.addEventListener("submit", async (e) => {
     if (files && files.length > 0) {
       for (let i = 0; i < files.length && i < 4; i++) {
         const link = await uploadToCloudinary(files[i]);
+        console.log("Uploaded URL:", link);
         uploadedUrls.push(link);
       }
     }
