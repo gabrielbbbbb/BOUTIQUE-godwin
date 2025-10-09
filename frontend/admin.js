@@ -173,6 +173,7 @@ async function uploadToCloudinary(file) {
   });
 
   const data = await res.json();
+  if (!data.secure_url) throw new Error("Cloudinary upload failed");
   return data.secure_url; // permanent image URL
 }
 
@@ -192,9 +193,11 @@ productForm.addEventListener("submit", async (e) => {
     // upload all images to Cloudinary first
     const files = imagesField.files;
     const uploadedUrls = [];
-    for (let i = 0; i < files.length && i < 4; i++) {
-      const link = await uploadToCloudinary(files[i]);
-      uploadedUrls.push(link);
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length && i < 4; i++) {
+        const link = await uploadToCloudinary(files[i]);
+        uploadedUrls.push(link);
+      }
     }
 
     // send final product data
@@ -206,6 +209,10 @@ productForm.addEventListener("submit", async (e) => {
       category: categoryField.value,
       images: uploadedUrls,
     };
+
+    if (uploadedUrls.length > 0) {
+      body.images = uploadedUrls;
+    }
 
     const res = await adminFetch(url, {
       method,
