@@ -3,7 +3,7 @@
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+//const __dirname = path.dirname(__filename);
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -16,6 +16,7 @@ import path from "path";
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "./config/cloudinary.js";
+//import router from "./routes/api.js";
 
 const app = express();
 
@@ -66,13 +67,26 @@ function requireAdmin(req, res, next) {
 // ======= Serve Frontend =======
 //app.use(express.static(path.join(process.cwd(), "frontend")));
 
-const frontendPath = path.join(__dirname, "..", "frontend");
-app.use(express.static(frontendPath));
+//const frontendPath = path.join(__dirname, "..", "frontend");
+//app.use(express.static(frontendPath));
+
+// ✅ Serve API routes first (above frontend)
+//app.use("/api", router); // if you are using router, or just keep your routes directly
+
+// ✅ Serve frontend only for non-API routes
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "frontend")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
+  if (!req.path.startsWith("/api")) {
+    res.sendFile(path.join(__dirname, "frontend", "index.html"));
+  }
 });
 
+/*app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+*/
 // ======= Routes =======
 
 // Get all products

@@ -83,17 +83,11 @@ function adminFetch(url, options = {}) {
 async function loadAdminProducts() {
   try {
     const res = await fetch(`${API_BASE}/products`);
-    const contentType = res.headers.get("content-type");
-
-    if (!res.ok || !contentType.includes("application/json")) {
-      throw new Error("Invalid response format");
-    }
-
     const list = await res.json();
     renderAdminList(list);
   } catch (err) {
-    console.error("Could not load products:", err);
-    adminList.innerHTML = "<p>Erreur de chargement des produits.</p>";
+    console.error(err);
+    adminList.innerHTML = "<p>Impossible de charger le produit.</p>";
   }
 }
 
