@@ -41,11 +41,9 @@ function renderProducts() {
 
     // Ensure we use full URL if using Cloudinary
     const imgSrc =
-      product.images && product.images[0]
-        ? product.images[0].startsWith("http")
-          ? product.images[0]
-          : `https://boutique-godwin.onrender.com${product.images[0]}`
-        : "";
+      Array.isArray(p.images) && p.images.length > 0
+        ? p.images[0]
+        : "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg";
 
     card.innerHTML = `
       <img src="${imgSrc}" alt="${escapeHtml(product.name)}">

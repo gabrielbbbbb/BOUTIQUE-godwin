@@ -104,11 +104,9 @@ function renderAdminList(items) {
 
     // Use full URL for images
     const imgSrc =
-      p.images && p.images[0]
-        ? p.images[0].startsWith("http")
-          ? p.images[0]
-          : `https://boutique-godwin.onrender.com${p.images[0]}`
-        : "";
+      Array.isArray(p.images) && p.images.length > 0
+        ? p.images[0]
+        : "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg";
 
     div.innerHTML = `
       <img src="${imgSrc}" alt="${p.name}">
