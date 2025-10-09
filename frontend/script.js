@@ -39,6 +39,39 @@ function renderProducts() {
     const card = document.createElement("div");
     card.className = "product-card";
 
+    // ✅ FIX: use "product" not "p"
+    const imgSrc =
+      Array.isArray(product.images) && product.images.length > 0
+        ? product.images[0].startsWith("http")
+          ? product.images[0]
+          : `https://boutique-godwin.onrender.com${product.images[0]}`
+        : "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg"; // fallback
+
+    card.innerHTML = `
+      <img src="${imgSrc}" alt="${escapeHtml(product.name)}">
+      <h3>${escapeHtml(product.name)}</h3>
+      <p class='modalDescrip'>${escapeHtml(
+        truncate(product.description || "", 80)
+      )}</p>
+      <p><strong>${product.price ?? ""} CFA</strong></p>
+    `;
+
+    card.addEventListener("click", () => openModal(i));
+    productsContainer.appendChild(card);
+  });
+}
+
+/* function renderProducts() {
+  productsContainer.innerHTML = "";
+  if (!products.length) {
+    productsContainer.innerHTML = "<p>Aucun produit pour l'instant.</p>";
+    return;
+  }
+
+  products.forEach((product, i) => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+
     // Ensure we use full URL if using Cloudinary
     const imgSrc =
       Array.isArray(p.images) && p.images.length > 0
@@ -56,7 +89,7 @@ function renderProducts() {
     card.addEventListener("click", () => openModal(i));
     productsContainer.appendChild(card);
   });
-}
+} */
 
 function openModal(index) {
   currentProductIndex = index;
