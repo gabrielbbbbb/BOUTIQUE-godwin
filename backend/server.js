@@ -26,6 +26,8 @@ mongoose
 // Routes API
 app.use("/api/products", require("./routes/products"));
 
+app.use("/api/admin", require("./routes/admin"));
+
 // Fallback pour SPA (si tu utilises React ou une navigation JS)
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
