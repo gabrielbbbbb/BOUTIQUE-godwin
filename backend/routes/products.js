@@ -50,6 +50,11 @@ router.post("/", upload.array("images", 4), async (req, res) => {
           }
         )
         .end(file.buffer);
+      images.push(result.secure_url);
+
+      // Convert buffer to stream
+      const streamifier = require("streamifier");
+      streamifier.createReadStream(file.buffer).pipe(result);
     }
 
     const newProduct = new Product({
@@ -88,6 +93,7 @@ router.put("/:id", upload.array("images", 4), async (req, res) => {
           }
         )
         .end(file.buffer);
+      result && images.push(result.secure_url);
     }
 
     const updated = await Product.findByIdAndUpdate(

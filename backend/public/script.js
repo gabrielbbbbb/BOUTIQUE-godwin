@@ -61,13 +61,6 @@ function renderProducts() {
         ? product.images[0]
         : "placeholder.jpg";
 
-    /* const imgSrc =
-      Array.isArray(product.images) && product.images.length > 0
-        ? product.images[0].startsWith("/")
-          ? product.images[0] // local path like /uploads/image.jpg
-          : `/uploads/${product.images[0]}` // fallback if only filename is stored
-        : "placeholder.jpg"; // fallback image
- */
     card.innerHTML = `
       <img src="${imgSrc}" alt="${escapeHtml(product.name)}">
       <h3>${escapeHtml(product.name)}</h3>
