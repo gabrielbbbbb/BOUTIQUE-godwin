@@ -3,11 +3,31 @@ const router = express.Router();
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const { cloudinary } = require("../utils/cloudinary");
-const Product = require("../models/Product"); // Ton modèle Mongoose
+const Product = require("../models/Product");
+const streamifier = require("streamifier");
 
 // Multer config (stockage en mémoire)
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+
+// Fonction utilitaire pour uploader une image vers Cloudinary
+function uploadToCloudinary(fileBuffer, publicId) {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: "products",
+        public_id: publicId,
+        resource_type: "image",
+      },
+      (error, result) => {
+        if (error) return reject(error);
+        resolve(result.secure_url);
+      }
+    );
+
+    streamifier.createReadStream(fileBuffer).pipe(uploadStream);
+  });
+}
 
 // GET all products
 router.get("/", async (req, res) => {
@@ -37,24 +57,8 @@ router.post("/", upload.array("images", 4), async (req, res) => {
     const images = [];
 
     for (const file of req.files) {
-      const result = await cloudinary.uploader
-        .upload_stream(
-          {
-            folder: "products",
-            public_id: uuidv4(),
-            resource_type: "image",
-          },
-          (error, result) => {
-            if (error) throw error;
-            images.push(result.secure_url);
-          }
-        )
-        .end(file.buffer);
-      images.push(result.secure_url);
-
-      // Convert buffer to stream
-      const streamifier = require("streamifier");
-      streamifier.createReadStream(file.buffer).pipe(result);
+      const imageUrl = await uploadToCloudinary(file.buffer, uuidv4());
+      images.push(imageUrl);
     }
 
     const newProduct = new Product({
@@ -65,11 +69,12 @@ router.post("/", upload.array("images", 4), async (req, res) => {
       category,
       images,
     });
+
     await newProduct.save();
     res.status(201).json(newProduct);
   } catch (err) {
-    console.error(err);
-    res.status(400).json({ error: "Erreur d'ajout" });
+    console.error("Erreur backend:", err);
+    res.status(400).json({ error: "Erreur d'ajout", details: err.message });
   }
 });
 
@@ -80,20 +85,8 @@ router.put("/:id", upload.array("images", 4), async (req, res) => {
     const images = [];
 
     for (const file of req.files) {
-      const result = await cloudinary.uploader
-        .upload_stream(
-          {
-            folder: "products",
-            public_id: uuidv4(),
-            resource_type: "image",
-          },
-          (error, result) => {
-            if (error) throw error;
-            images.push(result.secure_url);
-          }
-        )
-        .end(file.buffer);
-      result && images.push(result.secure_url);
+      const imageUrl = await uploadToCloudinary(file.buffer, uuidv4());
+      images.push(imageUrl);
     }
 
     const updated = await Product.findByIdAndUpdate(
@@ -104,8 +97,10 @@ router.put("/:id", upload.array("images", 4), async (req, res) => {
 
     res.json(updated);
   } catch (err) {
-    console.error(err);
-    res.status(400).json({ error: "Erreur de mise à jour" });
+    console.error("Erreur de mise à jour:", err);
+    res
+      .status(400)
+      .json({ error: "Erreur de mise à jour", details: err.message });
   }
 });
 
