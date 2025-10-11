@@ -2,16 +2,18 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 dotenv.config();
 
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Sert le frontend statique
+// Sert les fichiers statiques du frontend
 app.use(express.static(path.join(__dirname, "public")));
 
 // Connexion MongoDB
@@ -25,10 +27,9 @@ mongoose
 
 // Routes API
 app.use("/api/products", require("./routes/products"));
-
 app.use("/api/admin", require("./routes/admin"));
 
-// Fallback pour SPA (si tu utilises React ou une navigation JS)
+// Fallback pour SPA (si React ou navigation JS)
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
