@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api"; // Local API
+const API_BASE = "https://boutique-godwin.onrender.com/api";
 let products = [];
 let currentProductIndex = 0;
 let currentImageIndex = 0;

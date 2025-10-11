@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://boutique-godwin.onrender.com/api";
 const loginSection = document.getElementById("loginSection");
 const panelSection = document.getElementById("panelSection");
 const loginBtn = document.getElementById("loginBtn");
