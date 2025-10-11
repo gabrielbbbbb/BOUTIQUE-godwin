@@ -1,0 +1,157 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.link {
+  font-size: 15px;
+  background-color: yellow;
+  text-align: end;
+  text-decoration: none;
+  cursor: pointer;
+  color: blue;
+  border-radius: 10px;
+  position: fixed;
+  margin-bottom: 10px;
+  padding: 5px;
+  margin-top: 10px;
+}
+header {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 70%;
+  padding: 20px;
+}
+.head h1 {
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: blue;
+}
+.head p {
+  padding: 5px;
+  word-spacing: 5px;
+  font-weight: bold;
+  font-size: 2rem;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.body p {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.footer {
+  color: white;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background-color: blue;
+  align-items: center;
+  gap: 20px;
+}
+.footer h1,
+h2,
+h3 {
+  color: yellow;
+}
+footer {
+  background-color: rgba(0, 0, 0, 0.171);
+  display: flex;
+  height: 50px;
+  padding: 10px;
+  font-size: 1rem;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.share-buttons {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.share-buttons p {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.share {
+  display: inline-block;
+  margin: 0.3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.share.whatsapp {
+  background-color: #25d366;
+}
+
+.share.facebook {
+  background-color: #3b5998;
+}
+
+.share.email {
+  background-color: #6c757d;
+}
+.partage {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.name {
+  color: red;
+  font-weight: bold;
+}
+@media (max-width: 600px) {
+  .body img {
+    width: 300px;
+    margin-left: 30px;
+  }
+
+  .head {
+    text-align: center;
+  }
+  .footer h1,
+  .body p {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .footer p {
+    font-size: 0.7rem;
+  }
+  .footer h2,
+  h3 {
+    font-size: 0.7rem;
+  }
+  footer {
+    font-size: 0.7rem;
+  }
+  .head p {
+    font-size: 0.7rem;
+    width: 300px;
+  }
+}

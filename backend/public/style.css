@@ -1,0 +1,430 @@
+:root {
+  --bg: #f6f7fb;
+  --card: #fff;
+  --accent: #1565c0;
+}
+* {
+  box-sizing: border-box;
+}
+
+.theme-toggle {
+  margin-top: 12px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--accent);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.theme-toggle:hover {
+  background-color: #003c8f;
+}
+
+/* Thème sombre */
+body.dark-theme {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+body.dark-theme .site-header {
+  background-color: #222;
+}
+body.dark-theme .product-card {
+  background-color: #1e1e1e;
+  color: #ddd;
+}
+body.dark-theme .modal-content {
+  background-color: #2a2a2a;
+  color: #eee;
+}
+body.dark-theme .theme-toggle {
+  background-color: #444;
+}
+body.dark-theme .section-title {
+  color: white;
+}
+body.dark-theme .site-header h1 {
+  color: #90caf9;
+}
+body.dark-theme .site-header a {
+  background-color: #555;
+  color: #90caf9;
+}
+body.dark-theme .site-header a:hover {
+  background-color: #90caf9;
+  color: #222;
+}
+body.dark-theme .modal-nav {
+  background-color: #90caf9;
+  color: #222;
+}
+body.dark-theme #modalDescription {
+  color: whitesmoke;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  margin: 0;
+  color: #000;
+  background-color: white;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+.site-header {
+  background: yellow;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
+.site-header h1 {
+  color: #1565c0;
+  font-weight: bold;
+  font-size: 3rem;
+  text-shadow: 0px 3px 6px #555;
+}
+.site-header a {
+  color: #1565c0;
+  margin-left: 12px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 300px;
+  padding: 10px 15px;
+  background-color: #a6adada1;
+}
+.site-header a:hover {
+  color: red;
+  transition: 0.5s ease-in-out;
+  background-color: #1565c0;
+  color: yellow;
+}
+
+.site-header a {
+  position: relative;
+}
+
+.site-header a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.site-header a:hover::after {
+  width: 100%;
+}
+
+.section-title {
+  color: black;
+}
+.tt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main {
+  padding: 18px;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  justify-content: center;
+}
+.product-card {
+  background: var(--card);
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+  animation: fadeUp 0.4s ease forwards;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+img:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+img {
+  width: 100%;
+  /*  max-width: 300px; ou la taille idéale pour ton design */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.product-image {
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.product-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.product-card h3 {
+  margin: 10px 0 6px;
+  font-size: 16px;
+}
+.product-card p {
+  margin: 4px 0;
+  color: #555;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal[aria-hidden="false"] {
+  display: flex;
+}
+.modal-content {
+  background: #fff;
+  padding: 18px;
+  border-radius: 10px;
+  max-width: 720px;
+  width: 100%;
+  position: relative;
+  animation: zoomIn 0.18s ease;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.site-header h1 {
+  animation: bounceIn 0.6s ease-out;
+}
+
+.modal-content:focus {
+  outline: none;
+}
+
+.close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  border: 0;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+.carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel img {
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.carousel-nav.left {
+  left: 6px;
+}
+.carousel-nav.right {
+  right: 6px;
+}
+.modal-product-nav {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+.modal-nav {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#modalDescription,
+#modalName {
+  color: black;
+  font-weight: bold;
+  width: 600px;
+}
+.modalDescrip {
+  overflow: hidden;
+}
+#modalPrice {
+  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: #555;
+  font-size: 1.5rem;
+}
+button:focus {
+  outline: 2px solid var(--accent);
+}
+
+.close {
+  color: red;
+  font-size: 2rem;
+}
+.modal-content {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+@media (max-width: 600px) {
+  .product-card img {
+    height: 100px;
+  }
+  .site-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .site-header a {
+    font-size: 1rem;
+  }
+  .site-header h1 {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  .carousel img {
+    max-height: 220px;
+  }
+
+  #modalDescription,
+  #modalName {
+    color: black;
+    font-weight: bold;
+    width: 300px;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .product-card img {
+    height: auto;
+  }
+}
+
+@media (max-width: 340px) {
+  .site-header h1 {
+    margin-left: 4rem;
+  }
+  .site-header a {
+    margin-top: -50px;
+  }
+}
+@media (min-width: 600px) and (max-width: 1000px) {
+  .site-header h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+    font-size: 16px;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .products {
+    flex-direction: column;
+  }
+
+  .product-card {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .toggle-mode {
+    justify-content: center;
+  }
+}

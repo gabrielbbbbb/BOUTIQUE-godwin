@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head lang="fr">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Boutique spécialisée en ordinateurs portables et de bureau. Découvrez nos produits et contactez-nous."
+    />
+    <title>Laptop & Desktop Shop</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preload" href="style.css" as="style" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>SHOP GODWIN INFORMATIQUE</h1>
+      <nav aria-label="Navigation principale">
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="productsArea">
+        <div class="tt">
+          <h2 class="section-title">Available Products</h2>
+          <button id="themeToggle" class="theme-toggle">🌙 Mode sombre</button>
+        </div>
+        <div id="products" class="product-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <!-- Modal -->
+    <div
+      id="productModal"
+      class="modal"
+      aria-hidden="true"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-content">
+        <div class="carousel">
+          <button
+            id="prevImage"
+            class="carousel-nav left"
+            aria-label="Image précédente"
+          >
+            &#10094;
+          </button>
+          <img id="modalImage" src="" alt="product image" />
+          <button id="nextImage" class="carousel-nav right">&#10095;</button>
+        </div>
+
+        <h3 id="modalName"></h3>
+        <p id="modalDescription"></p>
+        <p><strong id="modalPrice"></strong></p>
+
+        <div class="modal-product-nav">
+          <button id="prevProduct" class="modal-nav">Avant</button>
+          <button id="nextProduct" class="modal-nav">Next</button>
+          <button id="closeModal" class="close">❌</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
