@@ -382,13 +382,13 @@ button:focus {
 
 @media (max-width: 350px) {
   .site-header h1 {
-    margin-left: 4rem;
-    font-size: 1.5rem;
+    margin-left: 2rem;
+    font-size: 2rem;
   }
   .site-header a {
     margin-top: -50px;
     padding: 5px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 }
 @media (min-width: 600px) and (max-width: 1000px) {
